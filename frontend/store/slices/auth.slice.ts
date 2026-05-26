@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import api from '@/lib/api';
-
-interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: 'student' | 'teacher' | 'admin';
-}
+import type { User } from '@/lib/types';
 
 interface AuthState {
   user: User | null;
@@ -21,7 +14,7 @@ const initialState: AuthState = {
   isLoading: false,
 };
 
-export const bootstrapAuth = createAsyncThunk('auth/bootstrapAuth', async (_, { dispatch }) => {
+export const bootstrapAuth = createAsyncThunk('auth/bootstrapAuth', async () => {
   const res = await api.get<User>('/auth/me');
   return res.data;
 });
